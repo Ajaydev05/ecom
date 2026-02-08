@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  db:
+    image: mongo:6
+    container_name: mongodb
+    volumes:
+      - /home/ubuntu/mongodata:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    container_name: backend
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017/ecommerce
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
