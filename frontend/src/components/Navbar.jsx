@@ -1,13 +1,10 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function Navbar({ onSearch }) {
-  const [query, setQuery] = useState("");
+  const { cart } = useCart();
 
-  const handleSearch = (e) => {
-    setQuery(e.target.value);
-    onSearch(e.target.value);
-  };
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="navbar">
@@ -16,14 +13,13 @@ export default function Navbar({ onSearch }) {
       <input
         type="text"
         placeholder="Search products..."
-        value={query}
-        onChange={handleSearch}
+        onChange={(e) => onSearch(e.target.value)}
         className="search"
       />
 
       <div className="links">
         <Link to="/">Home</Link>
-        <Link to="/cart">Cart</Link>
+        <Link to="/cart">Cart ({totalItems})</Link>
       </div>
     </div>
   );
