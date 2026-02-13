@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Navbar from "../components/Navbar";
+import Advertisement from "../components/Advertisement";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/api/products").then(res => setProducts(res.data));
+    axios.get("/api/products").then(res => {
+      setProducts(res.data);
+    });
   }, []);
+
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
-      <div className="header">ShopEase</div>
-
-      <div className="hero">
-        Welcome to ShopEase – Clothes, Books, Electronics
-      </div>
+      <Navbar onSearch={setSearch} />
+      <Advertisement />
 
       <div className="products">
-        {products.map(p => (
+        {filtered.map(p => (
           <div className="card" key={p._id}>
-            <img src={p.image} />
+            <img src={p.image} alt={p.name} />
             <h3>{p.name}</h3>
             <p>₹{p.price}</p>
             <button>Add to Cart</button>
