@@ -25,7 +25,8 @@ pipeline {
 
         stage('Build Frontend Image') {
             steps {
-                sh 'docker build -t $FRONTEND_IMAGE:latest ./nginx'
+                sh docker build -t $FRONTEND_IMAGE:latest ./nginx
+
             }
         }
 
