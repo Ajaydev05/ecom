@@ -1,0 +1,16 @@
+apiVersion: v2
+name: ecom
+description: Helm chart for ecom full-stack application on Kubernetes (EC2 / NodePort)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - ecommerce
+  - nodejs
+  - react
+  - mongodb
+  - devops
+  - kubernetes
+maintainers:
+  - name: Ajaydev A
+    email: ajaydev05.2003@gmail.com
