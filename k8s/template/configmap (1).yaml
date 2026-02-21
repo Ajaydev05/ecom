@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-config
-  namespace: {{ .Values.namespace }}
-data:
-  NODE_ENV: {{ .Values.env.nodeEnv }}
-  REACT_APP_API_URL: {{ .Values.env.apiUrl }}
-  MONGO_DATABASE: {{ .Values.mongodb.database }}
