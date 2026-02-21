@@ -44,7 +44,7 @@ pipeline {
                 }
                 stage('Build Backend') {
                     steps {
-                        echo '🐳 Building backend image...'
+                        echo ' Building backend image...'
                         sh """
                             docker build \
                                 -t ${BACKEND_IMAGE}:${IMAGE_TAG} \
@@ -87,7 +87,7 @@ pipeline {
 
         stage('Helm Deploy') {
             steps {
-                echo '⎈ Deploying with Helm...'
+                echo ' Deploying with Helm...'
                 sh """
                     
                     kubectl get namespace ${K8S_NAMESPACE} || kubectl create namespace ${K8S_NAMESPACE}
